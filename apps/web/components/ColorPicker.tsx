@@ -80,8 +80,8 @@ export function ColorPicker({ value, onChange, disabled, compact = false }: Colo
 
   const normalized = value.toLowerCase();
 
-  const SECTION_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
-  const SUB_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2";
+  const SECTION_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-secondary";
+  const SUB_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-secondary mb-2";
   const pickerStyle: React.CSSProperties = compact ? { height: 110 } : { height: 168 };
 
   return (

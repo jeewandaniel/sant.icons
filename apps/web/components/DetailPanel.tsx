@@ -25,7 +25,7 @@ function withSvg(icon: IconRecord, svg: string): IconRecord {
   return { ...icon, svg };
 }
 
-const SECTION = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
+const SECTION = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-secondary";
 
 const FORMATS: { kind: Format; label: string; defaultAction: "copy" | "download" }[] = [
   { kind: "svg", label: "SVG", defaultAction: "copy" },
@@ -73,11 +73,11 @@ export function DetailPanel({
                 }}
               />
             ) : icon ? (
-              <span className="text-text-faint text-[12px]">loading…</span>
+              <span className="text-text-muted text-[12px]">loading…</span>
             ) : (
               <div className="text-center px-4">
-                <div className="text-text-muted text-[13px]">Select an icon to start</div>
-                <div className="text-text-faint text-[11px] mt-1">
+                <div className="text-text-secondary text-[13px]">Select an icon to start</div>
+                <div className="text-text-muted text-[11px] mt-1">
                   Pick from the grid to copy or customise
                 </div>
               </div>
@@ -85,7 +85,7 @@ export function DetailPanel({
           </div>
           <div className="mt-3">
             <div className="text-[13px] font-medium text-text-primary truncate">
-              {icon ? icon.name : <span className="text-text-faint">No icon selected</span>}
+              {icon ? icon.name : <span className="text-text-muted">No icon selected</span>}
             </div>
             <div className="text-[11px] text-text-muted mt-0.5">
               {icon
@@ -115,7 +115,7 @@ export function DetailPanel({
       <div className="shrink-0 border-t border-border-subtle bg-bg-surface px-6 py-4 space-y-3">
         <div className="flex items-center justify-between">
           <div className={SECTION}>Download</div>
-          {!icon && <div className="text-[10px] text-text-faint">pick an icon first</div>}
+          {!icon && <div className="text-[10px] text-text-muted">pick an icon first</div>}
         </div>
         <div className="grid grid-cols-2 gap-2">
           {FORMATS.map((f) => (

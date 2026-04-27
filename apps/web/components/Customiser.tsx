@@ -17,7 +17,7 @@ interface CustomiserProps {
   compact?: boolean;
 }
 
-const SECTION = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
+const SECTION = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-secondary";
 
 export function Customiser({
   icon,
@@ -35,11 +35,11 @@ export function Customiser({
       <div className="flex items-center justify-between">
         <div className={SECTION}>Customise</div>
         <div className="flex items-center gap-3 text-[10px]">
-          {!icon && <span className="text-text-faint">live preview</span>}
+          {!icon && <span className="text-text-muted">live preview</span>}
           <button
             type="button"
             onClick={onReset}
-            className="text-text-faint hover:text-accent transition-colors"
+            className="text-text-muted hover:text-accent transition-colors"
           >
             reset
           </button>
