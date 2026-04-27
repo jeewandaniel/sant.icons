@@ -15,7 +15,7 @@ const SWATCHES = [
 ];
 
 const RECENT_KEY = "sant-icons:recent-colors";
-const RECENT_MAX = 6;
+const RECENT_MAX = 8;
 
 function loadRecents(): string[] {
   if (typeof window === "undefined") return [];
@@ -99,39 +99,56 @@ export function ColorPicker({ value, onChange, disabled, compact = false }: Colo
         <HexColorPicker color={value} onChange={onChange} style={{ width: "100%", height: "100%" }} />
       </div>
 
-      {/* Preset swatches — no label, swatches speak for themselves */}
-      <div className="grid grid-cols-8 gap-1.5">
-        {SWATCHES.map((s) => {
-          const active = normalized === s.hex.toLowerCase();
-          return (
-            <button
-              key={s.hex}
-              onClick={() => onChange(s.hex)}
-              className={`aspect-square rounded transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-surface" : ""}`}
-              style={{ background: s.hex }}
-              title={s.label}
-              type="button"
-            />
-          );
-        })}
+      {/* Preset swatches — taller chips so they're easy to hit */}
+      <div>
+        <div className="text-[9px] tracking-[0.14em] uppercase text-text-faint mb-1.5">Presets</div>
+        <div className="grid grid-cols-8 gap-1.5">
+          {SWATCHES.map((s) => {
+            const active = normalized === s.hex.toLowerCase();
+            return (
+              <button
+                key={s.hex}
+                onClick={() => onChange(s.hex)}
+                className={`h-7 rounded transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-surface" : ""}`}
+                style={{ background: s.hex }}
+                title={s.label}
+                type="button"
+              />
+            );
+          })}
+        </div>
       </div>
 
-      {/* Recents — only when populated, no label */}
-      {recents.length > 0 && (
-        <div className="flex gap-1.5 flex-wrap pt-2 border-t border-border-subtle">
-          <span className="text-[9px] tracking-[0.12em] uppercase text-text-faint w-full mb-1">recent</span>
-          {recents.map((hex) => (
-            <button
-              key={hex}
-              type="button"
-              onClick={() => onChange(hex)}
-              className="w-5 h-5 rounded transition-transform hover:scale-110"
-              style={{ background: hex }}
-              title={hex}
-            />
-          ))}
+      {/* Recent — always visible. Empty slots make the row obvious so users
+          notice they have a colour history available. */}
+      <div>
+        <div className="text-[9px] tracking-[0.14em] uppercase text-text-faint mb-1.5">Recent</div>
+        <div className="grid grid-cols-8 gap-1.5">
+          {Array.from({ length: RECENT_MAX }).map((_, i) => {
+            const hex = recents[i];
+            if (!hex) {
+              return (
+                <div
+                  key={`slot-${i}`}
+                  className="h-7 rounded border border-dashed border-border-default opacity-40"
+                  aria-hidden
+                />
+              );
+            }
+            const active = normalized === hex.toLowerCase();
+            return (
+              <button
+                key={hex}
+                type="button"
+                onClick={() => onChange(hex)}
+                className={`h-7 rounded transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-surface" : ""}`}
+                style={{ background: hex }}
+                title={hex}
+              />
+            );
+          })}
         </div>
-      )}
+      </div>
     </div>
   );
 }
