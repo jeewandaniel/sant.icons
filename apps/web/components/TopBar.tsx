@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface TopBarProps {
   total: number;
@@ -44,6 +45,7 @@ export const TopBar = forwardRef<HTMLInputElement, TopBarProps>(function TopBar(
 
       {/* Nav */}
       <nav className="flex items-center gap-1 text-[13px] text-text-secondary shrink-0">
+        <ThemeToggle />
         <a className="px-2.5 py-1.5 rounded-md hover:text-text-primary hover:bg-bg-hover transition-colors" href="/docs">
           Docs
         </a>

@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  /* Dark theme (default). Light theme overrides below via [data-theme="light"]. */
+
   /* Zinc-ish dark surfaces */
   --color-bg-base: #0a0a0a;
   --color-bg-surface: #111113;
@@ -26,9 +28,39 @@
   --icon-stroke: 1;
   --icon-svg-size: 32px;
 
-  /* Accent — sant.icons signature lime */
+  /* Accent — sant.icons signature lime. Same hex on both themes for the
+     bg-tint and badge surfaces; for text/borders we lean on a darker
+     lime in light mode (see [data-theme="light"]) so it stays legible
+     against white. */
   --color-accent: #c8f07a;
   --color-accent-soft: rgba(200, 240, 122, 0.16);
+}
+
+[data-theme="light"] {
+  /* Surfaces — true white at the base, near-zinc-50/100 for raised elements */
+  --color-bg-base: #ffffff;
+  --color-bg-surface: #fafafa;
+  --color-bg-hover: #f4f4f5;
+  --color-bg-accent: rgba(101, 163, 13, 0.08);
+
+  /* Borders — light grey ladder */
+  --color-border-subtle: #f4f4f5;
+  --color-border-default: #e4e4e7;
+  --color-border-strong: #d4d4d8;
+  --color-border-accent: #65a30d;
+
+  /* Text — same brightness ladder as dark, just inverted */
+  --color-text-primary: #18181b;
+  --color-text-secondary: #52525b;
+  --color-text-muted: #71717a;
+  --color-text-faint: #a1a1aa;
+
+  /* Live preview default — slightly darker grey reads better on white */
+  --icon-color: #71717a;
+
+  /* Accent — darker lime (lime-600) so it's legible as text on white */
+  --color-accent: #65a30d;
+  --color-accent-soft: rgba(101, 163, 13, 0.12);
 }
 
 html, body {
