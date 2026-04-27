@@ -27,11 +27,11 @@ function withSvg(icon: IconRecord, svg: string): IconRecord {
 
 const SECTION = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
 
-const FORMATS: { kind: Format; label: string; shortcut: string; defaultAction: "copy" | "download" }[] = [
-  { kind: "svg", label: "SVG", shortcut: "1", defaultAction: "copy" },
-  { kind: "jsx", label: "JSX", shortcut: "2", defaultAction: "copy" },
-  { kind: "vue", label: "Vue", shortcut: "3", defaultAction: "copy" },
-  { kind: "png", label: "PNG", shortcut: "4", defaultAction: "download" },
+const FORMATS: { kind: Format; label: string; defaultAction: "copy" | "download" }[] = [
+  { kind: "svg", label: "SVG", defaultAction: "copy" },
+  { kind: "jsx", label: "JSX", defaultAction: "copy" },
+  { kind: "vue", label: "Vue", defaultAction: "copy" },
+  { kind: "png", label: "PNG", defaultAction: "download" },
 ];
 
 export function DetailPanel({
@@ -55,82 +55,88 @@ export function DetailPanel({
   const fullIcon = icon && cachedSvg ? withSvg(icon, cachedSvg) : null;
 
   return (
-    <aside className="w-[300px] shrink-0 border-l border-border-subtle bg-bg-surface flex flex-col overflow-y-auto">
-      {/* Preview */}
-      <div className="px-6 pt-6 pb-5 border-b border-border-subtle">
-        <div className="flex items-center justify-center h-[180px] bg-bg-base border border-border-subtle rounded-lg">
-          {fullIcon ? (
-            <div
-              className={`icon-svg ${icon!.style}`}
-              style={{
-                color,
-                ["--icon-svg-size" as string]: `${size}px`,
-              }}
-              dangerouslySetInnerHTML={{
-                __html: customiseSvg(fullIcon, { size, color, strokeWidth }),
-              }}
-            />
-          ) : icon ? (
-            <span className="text-text-faint text-[12px]">loading…</span>
-          ) : (
-            <div className="text-center px-4">
-              <div className="text-text-muted text-[13px] mb-1">No icon selected</div>
-              <div className="text-text-faint text-[11px]">Click an icon to customise it.</div>
+    <aside className="w-[300px] shrink-0 border-l border-border-subtle bg-bg-surface flex flex-col h-full">
+      {/* Scrollable region (preview + customiser). The action bar at the
+          bottom is sticky outside this so copy/download is always visible. */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        {/* Preview — only when an icon is selected. Empty state hides this
+            entirely so the customiser fills the space and feels intentional. */}
+        {icon && (
+          <div className="px-6 pt-6 pb-4 border-b border-border-subtle">
+            <div className="flex items-center justify-center h-[140px] bg-bg-base border border-border-subtle rounded-lg">
+              {fullIcon ? (
+                <div
+                  className={`icon-svg ${icon.style}`}
+                  style={{
+                    color,
+                    ["--icon-svg-size" as string]: `${size}px`,
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: customiseSvg(fullIcon, { size, color, strokeWidth }),
+                  }}
+                />
+              ) : (
+                <span className="text-text-faint text-[12px]">loading…</span>
+              )}
             </div>
-          )}
-        </div>
-        <div className="mt-4">
-          <div className="text-[14px] font-medium text-text-primary">
-            {icon?.name ?? "—"}
+            <div className="mt-3">
+              <div className="text-[13px] font-medium text-text-primary truncate">
+                {icon.name}
+              </div>
+              <div className="text-[11px] text-text-muted mt-0.5">
+                {icon.libraryLabel} · {icon.style} · {icon.license}
+              </div>
+            </div>
           </div>
-          <div className="text-[11px] text-text-muted mt-0.5">
-            {icon ? `${icon.libraryLabel} · ${icon.style} · ${icon.license}` : "Pick an icon to begin"}
+        )}
+
+        {/* Empty-state hint at top */}
+        {!icon && (
+          <div className="px-6 pt-6 pb-2">
+            <div className="text-[13px] text-text-muted">No icon selected</div>
+            <div className="text-[11px] text-text-faint mt-1 leading-relaxed">
+              Adjust here to set the global preview. Click any icon in the grid to copy it
+              and customise it locally.
+            </div>
           </div>
-          {icon && (
-            <code className="block mt-2 text-[10.5px] font-mono text-text-faint truncate">
-              {icon.id}
-            </code>
-          )}
+        )}
+
+        <div className="px-6 py-5">
+          <Customiser
+            icon={icon}
+            size={size}
+            setSize={setSize}
+            strokeWidth={strokeWidth}
+            setStrokeWidth={setStrokeWidth}
+            color={color}
+            setColor={setColor}
+            onReset={onReset}
+            compact
+          />
         </div>
       </div>
 
-      {/* Customiser — always rendered, gated by `icon` */}
-      <div className="px-6 py-5 border-b border-border-subtle">
-        <Customiser
-          icon={icon}
-          size={size}
-          setSize={setSize}
-          strokeWidth={strokeWidth}
-          setStrokeWidth={setStrokeWidth}
-          color={color}
-          setColor={setColor}
-          onReset={onReset}
-        />
-      </div>
-
-      {/* Copy / download */}
-      <div className="px-6 py-5 space-y-3">
-        <div className="flex items-center justify-between">
-          <div className={SECTION}>Copy / Download</div>
-          <div className="text-[10px] text-text-faint tracking-wide">click label · shift-click =⬇</div>
+      {/* Sticky action bar — only when something is selected.
+          When empty, this whole region disappears. */}
+      {icon && (
+        <div className="shrink-0 border-t border-border-subtle bg-bg-surface">
+          <div className="px-6 pt-4 pb-3 grid grid-cols-2 gap-2">
+            {FORMATS.map((f) => (
+              <FormatChip
+                key={f.kind}
+                label={f.label}
+                disabled={!fullIcon}
+                defaultAction={f.defaultAction}
+                onCopy={() => onAction(f.kind, "copy")}
+                onDownload={() => onAction(f.kind, "download")}
+              />
+            ))}
+          </div>
+          <div className="px-6 pb-3 min-h-[20px] text-[11px] text-accent">
+            {feedback ?? <span className="text-text-faint">&nbsp;</span>}
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {FORMATS.map((f) => (
-            <FormatChip
-              key={f.kind}
-              label={f.label}
-              disabled={!fullIcon}
-              defaultAction={f.defaultAction}
-              onCopy={() => onAction(f.kind, "copy")}
-              onDownload={() => onAction(f.kind, "download")}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-auto px-6 py-3 border-t border-border-subtle min-h-[36px] text-[11px] text-accent">
-        {feedback ?? <span className="text-text-faint">&nbsp;</span>}
-      </div>
+      )}
     </aside>
   );
 }

@@ -39,9 +39,11 @@ interface ColorPickerProps {
   value: string;
   onChange: (hex: string) => void;
   disabled?: boolean;
+  /** Compact mode — shorter HSV picker, tighter spacing, no Presets label. */
+  compact?: boolean;
 }
 
-export function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
+export function ColorPicker({ value, onChange, disabled, compact = false }: ColorPickerProps) {
   const [recents, setRecents] = useState<string[]>([]);
 
   useEffect(() => {
@@ -67,17 +69,15 @@ export function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
 
   const normalized = value.toLowerCase();
 
-  return (
-    <div className={`space-y-3 ${disabled ? "opacity-50 pointer-events-none" : ""}`}>
-      {/* Always-visible HSV picker */}
-      <HexColorPicker color={value} onChange={onChange} />
+  const SECTION_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
+  const spacing = compact ? "space-y-2.5" : "space-y-3";
+  const pickerStyle: React.CSSProperties = compact ? { height: 110 } : { height: 168 };
 
-      {/* Hex input + swatch */}
-      <div className="flex items-center gap-2">
-        <div
-          className="w-8 h-8 rounded-md border border-border-default shrink-0"
-          style={{ background: value }}
-        />
+  return (
+    <div className={`${spacing} ${disabled ? "opacity-50 pointer-events-none" : ""}`}>
+      {/* Header row: section label + inline hex input */}
+      <div className="flex items-center justify-between gap-2">
+        <span className={SECTION_LABEL}>Colour</span>
         <input
           type="text"
           value={value}
@@ -90,50 +90,46 @@ export function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
             }
           }}
           spellCheck={false}
-          className="flex-1 bg-bg-base border border-border-default rounded-md px-2 py-1.5 font-mono text-[12px] text-text-primary"
+          className="bg-bg-base border border-border-default rounded px-2 py-0.5 font-mono text-[11px] text-text-primary w-[88px] text-center"
         />
       </div>
 
-      {/* Preset swatches */}
-      <div>
-        <div className="text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2">
-          Presets
-        </div>
-        <div className="grid grid-cols-8 gap-1.5">
-          {SWATCHES.map((s) => {
-            const active = normalized === s.hex.toLowerCase();
-            return (
-              <button
-                key={s.hex}
-                onClick={() => onChange(s.hex)}
-                className={`aspect-square rounded-md transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-surface" : ""}`}
-                style={{ background: s.hex }}
-                title={s.label}
-                type="button"
-              />
-            );
-          })}
-        </div>
+      {/* HSV picker — compact height when in tight panel */}
+      <div style={pickerStyle}>
+        <HexColorPicker color={value} onChange={onChange} style={{ width: "100%", height: "100%" }} />
       </div>
 
-      {/* Recents */}
+      {/* Preset swatches — no label, swatches speak for themselves */}
+      <div className="grid grid-cols-8 gap-1.5">
+        {SWATCHES.map((s) => {
+          const active = normalized === s.hex.toLowerCase();
+          return (
+            <button
+              key={s.hex}
+              onClick={() => onChange(s.hex)}
+              className={`aspect-square rounded transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-surface" : ""}`}
+              style={{ background: s.hex }}
+              title={s.label}
+              type="button"
+            />
+          );
+        })}
+      </div>
+
+      {/* Recents — only when populated, no label */}
       {recents.length > 0 && (
-        <div>
-          <div className="text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2">
-            Recent
-          </div>
-          <div className="flex gap-1.5 flex-wrap">
-            {recents.map((hex) => (
-              <button
-                key={hex}
-                type="button"
-                onClick={() => onChange(hex)}
-                className="w-6 h-6 rounded transition-transform hover:scale-110"
-                style={{ background: hex }}
-                title={hex}
-              />
-            ))}
-          </div>
+        <div className="flex gap-1.5 flex-wrap pt-2 border-t border-border-subtle">
+          <span className="text-[9px] tracking-[0.12em] uppercase text-text-faint w-full mb-1">recent</span>
+          {recents.map((hex) => (
+            <button
+              key={hex}
+              type="button"
+              onClick={() => onChange(hex)}
+              className="w-5 h-5 rounded transition-transform hover:scale-110"
+              style={{ background: hex }}
+              title={hex}
+            />
+          ))}
         </div>
       )}
     </div>

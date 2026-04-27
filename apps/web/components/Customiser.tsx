@@ -13,6 +13,8 @@ interface CustomiserProps {
   color: string;
   setColor: (hex: string) => void;
   onReset: () => void;
+  /** Compact mode — tighter spacing, side-by-side sliders, smaller HSV. */
+  compact?: boolean;
 }
 
 const SECTION = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
@@ -26,9 +28,10 @@ export function Customiser({
   color,
   setColor,
   onReset,
+  compact = false,
 }: CustomiserProps) {
   return (
-    <div className="space-y-5">
+    <div className={compact ? "space-y-4" : "space-y-5"}>
       <div className="flex items-center justify-between">
         <div className={SECTION}>Customise</div>
         <div className="flex items-center gap-3 text-[10px]">
@@ -42,7 +45,8 @@ export function Customiser({
           </button>
         </div>
       </div>
-      <div className="space-y-4">
+      {/* Side-by-side sliders save ~40px vertical */}
+      <div className="grid grid-cols-2 gap-3">
         <Slider label="size" value={size} onChange={setSize} min={12} max={96} step={1} unit="px" />
         <Slider
           label="stroke"
@@ -53,10 +57,7 @@ export function Customiser({
           step={0.25}
         />
       </div>
-      <div className="space-y-3">
-        <div className={SECTION}>Colour</div>
-        <ColorPicker value={color} onChange={setColor} />
-      </div>
+      <ColorPicker value={color} onChange={setColor} compact={compact} />
     </div>
   );
 }
