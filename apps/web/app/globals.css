@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Zinc-ish dark surfaces */
+  --color-bg-base: #0a0a0a;
+  --color-bg-surface: #111113;
+  --color-bg-hover: #1a1a1d;
+  --color-bg-accent: rgba(200, 240, 122, 0.08);
+
+  /* Borders */
+  --color-border-subtle: #18181b;
+  --color-border-default: #27272a;
+  --color-border-strong: #3f3f46;
+  --color-border-accent: #c8f07a;
+
+  /* Text */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-text-faint: #52525b;
+
+  /* Live preview — adjusted via the customiser; flows to every grid cell */
+  --icon-color: #a2a2a2;
+  --icon-stroke: 1;
+  --icon-svg-size: 32px;
+
+  /* Accent — sant.icons signature lime */
+  --color-accent: #c8f07a;
+  --color-accent-soft: rgba(200, 240, 122, 0.16);
+}
+
+html, body {
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg-base);
+}
+
+input, button {
+  font-family: inherit;
+  color: inherit;
+}
+
+input:focus, button:focus {
+  outline: none;
+}
+
+/* Mono utility — for icon IDs, code, copyable strings */
+.font-mono, code, kbd, pre, .mono {
+  font-family: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border: 2px solid var(--color-bg-base);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-faint);
+}
+
+/* SVG default rendering inside cells uses currentColor + the live --icon-color */
+.icon-svg {
+  color: var(--icon-color);
+}
+.icon-svg svg {
+  width: var(--icon-svg-size, 32px);
+  height: var(--icon-svg-size, 32px);
+  color: inherit;
+  fill: none;
+  stroke: currentColor;
+}
+.icon-svg.solid svg,
+.icon-svg.filled svg,
+.icon-svg.duotone svg {
+  fill: currentColor;
+  stroke: none;
+}
+/* Force a uniform stroke-width on stroke-style icons in the GRID only,
+   so sidebar spotlights and detail-panel preview keep each library's
+   intended stroke. CSS rule beats SVG presentation attribute. */
+.icon-cell .icon-svg.stroke svg * {
+  stroke-width: var(--icon-stroke);
+}
+
+/* Slider — native range input restyled */
+input[type="range"].sant-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--color-border-default);
+  border-radius: 9999px;
+  cursor: pointer;
+}
+input[type="range"].sant-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--color-text-primary);
+  border: 2px solid var(--color-bg-base);
+  cursor: grab;
+  transition: transform 120ms;
+}
+input[type="range"].sant-slider:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+  cursor: grabbing;
+}
+input[type="range"].sant-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--color-text-primary);
+  border: 2px solid var(--color-bg-base);
+  cursor: grab;
+}
+input[type="range"].sant-slider:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* react-colorful overrides — match dark theme */
+.react-colorful {
+  width: 100% !important;
+  height: 168px !important;
+}
+.react-colorful__saturation {
+  border-radius: 6px 6px 0 0 !important;
+  border-bottom: 4px solid var(--color-bg-surface) !important;
+}
+.react-colorful__hue {
+  height: 12px !important;
+  border-radius: 0 0 6px 6px !important;
+}
+.react-colorful__pointer {
+  width: 14px !important;
+  height: 14px !important;
+}

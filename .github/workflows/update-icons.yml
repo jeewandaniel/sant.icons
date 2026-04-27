@@ -1,0 +1,28 @@
+name: Weekly refresh
+
+# Triggers a fresh Vercel deploy weekly. The deploy itself runs the ingestion
+# script (see vercel.json buildCommand), so the manifest is always rebuilt
+# from the latest upstream releases — no git artifacts needed.
+#
+# Setup: in Vercel project settings, create a Deploy Hook
+# (Settings → Git → Deploy Hooks). Copy the URL and add it as a GitHub
+# Actions secret named VERCEL_DEPLOY_HOOK_URL.
+
+on:
+  schedule:
+    # Mondays at 03:00 UTC (15:00 NZT)
+    - cron: "0 3 * * 1"
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
+            echo "✗ VERCEL_DEPLOY_HOOK_URL secret not set"
+            exit 1
+          fi
+          curl -sSfX POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
+          echo "✓ Triggered Vercel deploy"

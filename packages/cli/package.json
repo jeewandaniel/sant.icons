@@ -1,0 +1,26 @@
+{
+  "name": "@sant/icons-cli",
+  "version": "0.1.0",
+  "description": "Search and fetch icons from sant.icons (69,000+ open-source SVG icons) without leaving your terminal.",
+  "type": "module",
+  "bin": {
+    "sant-icons": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": ["dist", "data", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node ./scripts/copy-manifest.mjs"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fuse.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  },
+  "keywords": ["icons", "svg", "cli", "design", "developer-tools"],
+  "author": "Sant <hello@sant.co.nz> (https://sant.co.nz)",
+  "license": "MIT",
+  "homepage": "https://icons.sant.co.nz"
+}
