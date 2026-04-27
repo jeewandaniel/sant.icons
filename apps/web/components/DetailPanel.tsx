@@ -55,13 +55,12 @@ export function DetailPanel({
   const fullIcon = icon && cachedSvg ? withSvg(icon, cachedSvg) : null;
 
   return (
-    <aside className="w-[300px] shrink-0 border-l border-border-subtle bg-bg-surface flex flex-col h-full">
-      {/* Scrollable region (preview + customiser). The action bar at the
-          bottom is sticky outside this so copy/download is always visible. */}
-      <div className="flex-1 min-h-0 overflow-y-auto">
-        {/* Preview — only when an icon is selected. Empty state hides this
-            entirely so the customiser fills the space and feels intentional. */}
-        {icon && (
+    <aside className="w-[300px] shrink-0 border-l border-border-subtle bg-bg-surface flex flex-col h-full overflow-y-auto">
+      {/* Sections stack naturally — chips sit flush below the customiser
+          rather than pinned to the panel bottom. On tight viewports the
+          whole panel scrolls. */}
+      {/* Preview — only when an icon is selected. */}
+      {icon && (
           <div className="px-6 pt-6 pb-4 border-b border-border-subtle">
             <div className="flex items-center justify-center h-[140px] bg-bg-base border border-border-subtle rounded-lg">
               {fullIcon ? (
@@ -101,25 +100,24 @@ export function DetailPanel({
           </div>
         )}
 
-        <div className="px-6 py-5">
-          <Customiser
-            icon={icon}
-            size={size}
-            setSize={setSize}
-            strokeWidth={strokeWidth}
-            setStrokeWidth={setStrokeWidth}
-            color={color}
-            setColor={setColor}
-            onReset={onReset}
-            compact
-          />
-        </div>
+      <div className="px-6 py-5">
+        <Customiser
+          icon={icon}
+          size={size}
+          setSize={setSize}
+          strokeWidth={strokeWidth}
+          setStrokeWidth={setStrokeWidth}
+          color={color}
+          setColor={setColor}
+          onReset={onReset}
+          compact
+        />
       </div>
 
-      {/* Sticky action bar — only when something is selected.
-          When empty, this whole region disappears. */}
+      {/* Action bar — only when something is selected. Sits flush below
+          the customiser. */}
       {icon && (
-        <div className="shrink-0 border-t border-border-subtle bg-bg-surface">
+        <div className="border-t border-border-subtle bg-bg-surface">
           <div className="px-6 pt-4 pb-3 grid grid-cols-2 gap-2">
             {FORMATS.map((f) => (
               <FormatChip
