@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
 const SWATCHES = [
@@ -42,113 +42,98 @@ interface ColorPickerProps {
 }
 
 export function ColorPicker({ value, onChange, disabled }: ColorPickerProps) {
-  const [open, setOpen] = useState(false);
   const [recents, setRecents] = useState<string[]>([]);
-  const popoverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setRecents(loadRecents());
   }, []);
 
+  // Persist any custom (non-preset) colour to recents whenever the user
+  // settles on a value — debounced so we only commit when they stop dragging.
   useEffect(() => {
-    if (!open) return;
-    const onClick = (e: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
-        setOpen(false);
-        commitRecent(value);
-      }
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, value]);
-
-  const commitRecent = (hex: string) => {
-    if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return;
-    const lower = hex.toLowerCase();
+    if (!/^#[0-9a-fA-F]{6}$/.test(value)) return;
+    const lower = value.toLowerCase();
     if (SWATCHES.some((s) => s.hex.toLowerCase() === lower)) return;
-    setRecents((prev) => {
-      const next = [lower, ...prev.filter((c) => c.toLowerCase() !== lower)].slice(0, RECENT_MAX);
-      saveRecents(next);
-      return next;
-    });
-  };
+    const t = setTimeout(() => {
+      setRecents((prev) => {
+        if (prev[0]?.toLowerCase() === lower) return prev;
+        const next = [lower, ...prev.filter((c) => c.toLowerCase() !== lower)].slice(0, RECENT_MAX);
+        saveRecents(next);
+        return next;
+      });
+    }, 600);
+    return () => clearTimeout(t);
+  }, [value]);
 
   const normalized = value.toLowerCase();
 
   return (
-    <div className={`relative ${disabled ? "opacity-50 pointer-events-none" : ""}`}>
-      <div className="grid grid-cols-9 gap-1.5">
-        {SWATCHES.map((s) => {
-          const active = normalized === s.hex.toLowerCase();
-          return (
-            <button
-              key={s.hex}
-              onClick={() => onChange(s.hex)}
-              className={`aspect-square rounded-md transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-base" : ""}`}
-              style={{ background: s.hex }}
-              title={s.label}
-              type="button"
-            />
-          );
-        })}
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          className={`aspect-square rounded-md border border-border-default hover:border-text-muted text-text-muted hover:text-text-primary flex items-center justify-center text-[14px] transition-colors ${open ? "border-accent text-accent" : ""}`}
-          title="Custom colour"
-          aria-label="Open custom colour picker"
-        >
-          +
-        </button>
+    <div className={`space-y-3 ${disabled ? "opacity-50 pointer-events-none" : ""}`}>
+      {/* Always-visible HSV picker */}
+      <HexColorPicker color={value} onChange={onChange} />
+
+      {/* Hex input + swatch */}
+      <div className="flex items-center gap-2">
+        <div
+          className="w-8 h-8 rounded-md border border-border-default shrink-0"
+          style={{ background: value }}
+        />
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => {
+            const v = e.target.value;
+            if (/^#?[0-9a-fA-F]{0,6}$/.test(v)) {
+              const normalized = v.startsWith("#") ? v : `#${v}`;
+              if (/^#[0-9a-fA-F]{6}$/.test(normalized)) onChange(normalized);
+              else onChange(v);
+            }
+          }}
+          spellCheck={false}
+          className="flex-1 bg-bg-base border border-border-default rounded-md px-2 py-1.5 font-mono text-[12px] text-text-primary"
+        />
       </div>
 
-      {open && (
-        <div
-          ref={popoverRef}
-          className="absolute right-0 top-full mt-2 z-50 w-[260px] bg-bg-surface border border-border-default rounded-lg p-3 shadow-2xl"
-        >
-          <HexColorPicker color={value} onChange={onChange} />
-          <div className="mt-3 flex items-center gap-2">
-            <div
-              className="w-9 h-9 rounded-md border border-border-default shrink-0"
-              style={{ background: value }}
-            />
-            <input
-              type="text"
-              value={value}
-              onChange={(e) => {
-                const v = e.target.value;
-                if (/^#?[0-9a-fA-F]{0,6}$/.test(v)) {
-                  const normalized = v.startsWith("#") ? v : `#${v}`;
-                  if (/^#[0-9a-fA-F]{6}$/.test(normalized)) onChange(normalized);
-                  else onChange(v);
-                }
-              }}
-              spellCheck={false}
-              className="flex-1 bg-bg-base border border-border-default rounded-md px-2 py-2 font-mono text-[12px] text-text-primary"
-            />
-          </div>
+      {/* Preset swatches */}
+      <div>
+        <div className="text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2">
+          Presets
+        </div>
+        <div className="grid grid-cols-8 gap-1.5">
+          {SWATCHES.map((s) => {
+            const active = normalized === s.hex.toLowerCase();
+            return (
+              <button
+                key={s.hex}
+                onClick={() => onChange(s.hex)}
+                className={`aspect-square rounded-md transition-transform hover:scale-110 ${active ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-surface" : ""}`}
+                style={{ background: s.hex }}
+                title={s.label}
+                type="button"
+              />
+            );
+          })}
+        </div>
+      </div>
 
-          {recents.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-border-subtle">
-              <div className="text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2">
-                Recent
-              </div>
-              <div className="flex gap-1.5 flex-wrap">
-                {recents.map((hex) => (
-                  <button
-                    key={hex}
-                    type="button"
-                    onClick={() => onChange(hex)}
-                    className="w-6 h-6 rounded transition-transform hover:scale-110"
-                    style={{ background: hex }}
-                    title={hex}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+      {/* Recents */}
+      {recents.length > 0 && (
+        <div>
+          <div className="text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2">
+            Recent
+          </div>
+          <div className="flex gap-1.5 flex-wrap">
+            {recents.map((hex) => (
+              <button
+                key={hex}
+                type="button"
+                onClick={() => onChange(hex)}
+                className="w-6 h-6 rounded transition-transform hover:scale-110"
+                style={{ background: hex }}
+                title={hex}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

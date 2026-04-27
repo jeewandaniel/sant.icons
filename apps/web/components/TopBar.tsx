@@ -22,7 +22,7 @@ export const TopBar = forwardRef<HTMLInputElement, TopBarProps>(function TopBar(
       </div>
 
       {/* Search */}
-      <div className="flex-1 flex items-center gap-2.5 bg-bg-surface border border-border-default focus-within:border-text-faint hover:border-text-faint rounded-md px-3 py-1.5 transition-colors min-w-0">
+      <div className="flex-1 flex items-center gap-2.5 bg-bg-surface focus-within:bg-bg-hover hover:bg-bg-hover rounded-md px-3 py-1.5 transition-colors min-w-0">
         <SearchGlyph />
         <input
           ref={searchRef}
@@ -57,7 +57,7 @@ export const TopBar = forwardRef<HTMLInputElement, TopBarProps>(function TopBar(
         </a>
         <a
           className="px-2.5 py-1.5 rounded-md hover:text-text-primary hover:bg-bg-hover transition-colors"
-          href="https://github.com/sant-co-nz/sant-icons"
+          href="https://github.com/jeewandaniel/sant.icons"
           target="_blank"
           rel="noreferrer"
         >

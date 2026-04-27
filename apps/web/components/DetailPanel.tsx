@@ -119,7 +119,6 @@ export function DetailPanel({
             <FormatChip
               key={f.kind}
               label={f.label}
-              shortcut={f.shortcut}
               disabled={!fullIcon}
               defaultAction={f.defaultAction}
               onCopy={() => onAction(f.kind, "copy")}
@@ -138,14 +137,12 @@ export function DetailPanel({
 
 function FormatChip({
   label,
-  shortcut,
   disabled,
   defaultAction,
   onCopy,
   onDownload,
 }: {
   label: string;
-  shortcut: string;
   disabled: boolean;
   defaultAction: "copy" | "download";
   onCopy: () => void;
@@ -164,12 +161,9 @@ function FormatChip({
           else if (defaultAction === "copy") onCopy();
           else onDownload();
         }}
-        className="flex-1 flex items-center gap-1.5 px-3 py-2 text-[12px] text-text-secondary hover:text-text-primary hover:bg-bg-hover transition-colors"
+        className="flex-1 px-3 py-2 text-[12px] text-text-secondary hover:text-text-primary hover:bg-bg-hover transition-colors"
       >
-        <span className="flex-1 text-left">{label}</span>
-        <kbd className="font-mono text-[10px] text-text-faint group-hover:text-text-muted bg-bg-base border border-border-default rounded px-1 py-0.5">
-          {shortcut}
-        </kbd>
+        {label}
       </button>
       <button
         type="button"
