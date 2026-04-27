@@ -18,7 +18,7 @@ function IconCellInner({ icon, selected, onClick }: IconCellProps) {
     <button
       onClick={onClick}
       className={`icon-cell group relative flex items-center justify-center bg-bg-base hover:bg-bg-hover transition-colors h-[100px] w-full text-text-primary ${
-        selected ? "ring-1 ring-accent z-10 text-accent" : ""
+        selected ? "ring-2 ring-inset ring-accent z-10 text-accent" : ""
       }`}
       title={`${icon.libraryLabel} · ${icon.name}`}
       aria-label={icon.name}
