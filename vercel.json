@@ -1,9 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs",
+  "framework": null,
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm --filter @sant/ingestion run build && pnpm --filter @sant/ingestion run start && pnpm --filter @sant/web run build",
   "outputDirectory": "out",
+  "trailingSlash": false,
+  "cleanUrls": true,
   "github": {
     "silent": true
   }
