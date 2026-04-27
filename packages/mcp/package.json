@@ -1,5 +1,5 @@
 {
-  "name": "@sant/icons-mcp",
+  "name": "@santicons/mcp",
   "version": "0.1.0",
   "description": "MCP server for sant.icons — search and retrieve from 69,000+ open-source SVG icons without leaving your terminal.",
   "type": "module",

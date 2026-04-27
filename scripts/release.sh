@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Publish @sant/icons-mcp and @sant/icons-cli to npm.
+# Publish @santicons/mcp and @santicons/cli to npm.
 #
 # Prerequisites:
-#   1. `npm login` once on this machine (needs publish rights on the @sant org).
+#   1. `npm login` once on this machine (publishes under @santicons scope).
 #   2. The full manifest must already exist at apps/web/public/icons.json.
 #      If you haven't run ingestion this session, run:
 #          pnpm --filter @sant/ingestion run build
@@ -38,16 +38,16 @@ if [ -n "$BUMP" ]; then
     echo "✗ Bump must be one of: patch | minor | major"; exit 1
   fi
   echo "→ Bumping $BUMP for both packages"
-  pnpm --filter @sant/icons-mcp version "$BUMP" --no-git-tag-version
-  pnpm --filter @sant/icons-cli version "$BUMP" --no-git-tag-version
+  pnpm --filter @santicons/mcp version "$BUMP" --no-git-tag-version
+  pnpm --filter @santicons/cli version "$BUMP" --no-git-tag-version
 fi
 
 # --- Build (refreshes bundled manifests as a side effect) --------------------
 echo "→ Building MCP server"
-pnpm --filter @sant/icons-mcp run build
+pnpm --filter @santicons/mcp run build
 
 echo "→ Building CLI"
-pnpm --filter @sant/icons-cli run build
+pnpm --filter @santicons/cli run build
 
 # --- Publish -----------------------------------------------------------------
 MCP_VERSION=$(node -p "require('./packages/mcp/package.json').version")
@@ -55,21 +55,21 @@ CLI_VERSION=$(node -p "require('./packages/cli/package.json').version")
 
 echo
 echo "About to publish:"
-echo "  @sant/icons-mcp@$MCP_VERSION"
-echo "  @sant/icons-cli@$CLI_VERSION"
+echo "  @santicons/mcp@$MCP_VERSION"
+echo "  @santicons/cli@$CLI_VERSION"
 read -r -p "Continue? [y/N] " confirm
 case "$confirm" in
   [yY]|[yY][eE][sS]) ;;
   *) echo "Aborted."; exit 0 ;;
 esac
 
-echo "→ Publishing @sant/icons-mcp"
+echo "→ Publishing @santicons/mcp"
 ( cd packages/mcp && npm publish --access public )
 
-echo "→ Publishing @sant/icons-cli"
+echo "→ Publishing @santicons/cli"
 ( cd packages/cli && npm publish --access public )
 
 echo
-echo "✓ Published @sant/icons-mcp@$MCP_VERSION and @sant/icons-cli@$CLI_VERSION"
-echo "  https://www.npmjs.com/package/@sant/icons-mcp"
-echo "  https://www.npmjs.com/package/@sant/icons-cli"
+echo "✓ Published @santicons/mcp@$MCP_VERSION and @santicons/cli@$CLI_VERSION"
+echo "  https://www.npmjs.com/package/@santicons/mcp"
+echo "  https://www.npmjs.com/package/@santicons/cli"

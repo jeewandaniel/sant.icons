@@ -49,7 +49,7 @@ export const TopBar = forwardRef<HTMLInputElement, TopBarProps>(function TopBar(
         </a>
         <a
           className="px-2.5 py-1.5 rounded-md hover:text-text-primary hover:bg-bg-hover transition-colors"
-          href="https://www.npmjs.com/package/@sant/icons-cli"
+          href="https://www.npmjs.com/package/@santicons/cli"
           target="_blank"
           rel="noreferrer"
         >
@@ -65,7 +65,7 @@ export const TopBar = forwardRef<HTMLInputElement, TopBarProps>(function TopBar(
         </a>
         <a
           className="ml-1 px-2.5 py-1.5 rounded-md text-accent border border-border-accent bg-bg-accent hover:bg-bg-hover transition-colors text-[12px] font-medium tracking-wide"
-          href="https://www.npmjs.com/package/@sant/icons-mcp"
+          href="https://www.npmjs.com/package/@santicons/mcp"
           target="_blank"
           rel="noreferrer"
         >

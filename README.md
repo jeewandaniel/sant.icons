@@ -2,7 +2,7 @@
 
 > 69,000+ free open-source SVG icons across 18 libraries — one search bar, one URL.
 
-[icons.sant.co.nz](https://icons.sant.co.nz) · [Docs](https://icons.sant.co.nz/docs) · [MCP server](https://www.npmjs.com/package/@sant/icons-mcp) · [CLI](https://www.npmjs.com/package/@sant/icons-cli)
+[icons.sant.co.nz](https://icons.sant.co.nz) · [Docs](https://icons.sant.co.nz/docs) · [MCP server](https://www.npmjs.com/package/@santicons/mcp) · [CLI](https://www.npmjs.com/package/@santicons/cli)
 
 Three surfaces for the same data:
 
@@ -48,8 +48,8 @@ sant-icons/
 ├── apps/web/                  Next.js 14 site, statically exported
 ├── packages/
 │   ├── ingestion/             Builds the manifest from npm/GitHub upstream sources
-│   ├── mcp/                   @sant/icons-mcp — Model Context Protocol server
-│   └── cli/                   @sant/icons-cli — Terminal CLI
+│   ├── mcp/                   @santicons/mcp — Model Context Protocol server
+│   └── cli/                   @santicons/cli — Terminal CLI
 └── .github/workflows/         Weekly auto-update + release automation
 ```
 
@@ -111,7 +111,7 @@ Then `pnpm --filter @sant/ingestion run build && node packages/ingestion/dist/in
   "mcpServers": {
     "sant-icons": {
       "command": "npx",
-      "args": ["-y", "@sant/icons-mcp"]
+      "args": ["-y", "@santicons/mcp"]
     }
   }
 }

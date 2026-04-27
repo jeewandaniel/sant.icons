@@ -1,6 +1,6 @@
-# @sant/icons-cli
+# @santicons/cli
 
-Search and fetch from **19,000+ open-source SVG icons** across Lucide, Heroicons, Tabler, Phosphor, Bootstrap Icons, and Feather — without leaving your terminal.
+Search and fetch from **69,000+ open-source SVG icons** across 18 libraries including Lucide, Phosphor, Tabler, Material Design, Fluent UI, Heroicons, and more — without leaving your terminal.
 
 ```bash
 npx sant-icons search "settings"
@@ -58,4 +58,4 @@ npx sant-icons list --json
 ---
 
 Built by [Sant](https://sant.co.nz) — a web agency in Christchurch, New Zealand.
-Web: [icons.sant.co.nz](https://icons.sant.co.nz) · MCP: [@sant/icons-mcp](https://www.npmjs.com/package/@sant/icons-mcp)
+Web: [icons.sant.co.nz](https://icons.sant.co.nz) · MCP: [@santicons/mcp](https://www.npmjs.com/package/@santicons/mcp)

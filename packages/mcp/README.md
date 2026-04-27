@@ -1,6 +1,6 @@
-# @sant/icons-mcp
+# @santicons/mcp
 
-Search and fetch from **19,000+ open-source SVG icons** across Lucide, Heroicons, Tabler, Phosphor, Bootstrap Icons, and Feather — directly from your AI coding assistant via the [Model Context Protocol](https://modelcontextprotocol.io/).
+Search and fetch from **69,000+ open-source SVG icons** across 18 libraries including Lucide, Phosphor, Tabler, Material Design, Fluent UI, Heroicons, and more — directly from your AI coding assistant via the [Model Context Protocol](https://modelcontextprotocol.io/).
 
 No browser, no copy-paste, no signup. Manifest is bundled in the package, so it works offline.
 
@@ -17,7 +17,7 @@ Add to your MCP config:
   "mcpServers": {
     "sant-icons": {
       "command": "npx",
-      "args": ["-y", "@sant/icons-mcp"]
+      "args": ["-y", "@santicons/mcp"]
     }
   }
 }
@@ -68,4 +68,4 @@ Returns all available libraries with counts, supported styles, license, and vers
 ---
 
 Built by [Sant](https://sant.co.nz) — a web agency in Christchurch, New Zealand.
-Web: [icons.sant.co.nz](https://icons.sant.co.nz) · CLI: [@sant/icons-cli](https://www.npmjs.com/package/@sant/icons-cli)
+Web: [icons.sant.co.nz](https://icons.sant.co.nz) · CLI: [@santicons/cli](https://www.npmjs.com/package/@santicons/cli)

@@ -119,7 +119,14 @@ function annotateSvg(icon: IconRecord): string {
 
 function buildReactSnippet(icon: IconRecord): string {
   const Comp = pascalCase(icon.library) + pascalCase(icon.name);
-  return `import { ${Comp} } from "@sant/icons";\n\n<${Comp} size={24} />`;
+  // Generate a self-contained component (matches `npx sant-icons get … --format react`)
+  // so users can paste it directly without depending on a separate package.
+  return `// Run: npx sant-icons get ${icon.id} --format react
+export function ${Comp}(props) {
+  return (
+    ${icon.svg.replace(/\n\s+/g, " ").replace(/<svg([^>]*)>/, "<svg$1 {...props}>").trim()}
+  );
+}`;
 }
 
 function buildHtmlSnippet(icon: IconRecord): string {
@@ -305,7 +312,7 @@ export default async function IconPage({ params }: Props) {
           <p>
             Need this icon in your codebase fast? Install the{" "}
             <a
-              href="https://www.npmjs.com/package/@sant/icons-mcp"
+              href="https://www.npmjs.com/package/@santicons/mcp"
               target="_blank"
               rel="noreferrer"
               className="text-text-primary hover:text-accent transition-colors underline decoration-text-faint underline-offset-4"

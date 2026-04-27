@@ -47,7 +47,7 @@ export default async function DocsPage() {
           </Link>
           <a
             className="px-2.5 py-1.5 rounded-md hover:text-text-primary hover:bg-bg-hover transition-colors"
-            href="https://www.npmjs.com/package/@sant/icons-cli"
+            href="https://www.npmjs.com/package/@santicons/cli"
             target="_blank"
             rel="noreferrer"
           >
@@ -63,7 +63,7 @@ export default async function DocsPage() {
           </a>
           <a
             className="ml-1 px-2.5 py-1.5 rounded-md text-accent border border-border-accent bg-bg-accent hover:bg-bg-hover transition-colors text-[12px] font-medium"
-            href="https://www.npmjs.com/package/@sant/icons-mcp"
+            href="https://www.npmjs.com/package/@santicons/mcp"
             target="_blank"
             rel="noreferrer"
           >
@@ -117,16 +117,16 @@ export default async function DocsPage() {
             />
             <QuickCard
               label="MCP server"
-              command="npx -y @sant/icons-mcp"
+              command="npx -y @santicons/mcp"
               detail="For Claude Code and other MCP-aware AI tools."
-              href="https://www.npmjs.com/package/@sant/icons-mcp"
+              href="https://www.npmjs.com/package/@santicons/mcp"
               external
             />
             <QuickCard
               label="CLI"
               command="npx sant-icons search arrow"
               detail="Terminal-first. Scriptable. Offline-capable."
-              href="https://www.npmjs.com/package/@sant/icons-cli"
+              href="https://www.npmjs.com/package/@santicons/cli"
               external
             />
           </div>
@@ -145,7 +145,7 @@ export default async function DocsPage() {
   "mcpServers": {
     "sant-icons": {
       "command": "npx",
-      "args": ["-y", "@sant/icons-mcp"]
+      "args": ["-y", "@santicons/mcp"]
     }
   }
 }`}</Code>
