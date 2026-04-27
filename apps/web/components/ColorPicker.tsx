@@ -3,15 +3,26 @@
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
+// 16 swatches in 2 rows of 8 — generous quick-pick palette.
 const SWATCHES = [
+  // Row 1 — lights → warms
   { hex: "#fafafa", label: "white" },
   { hex: "#c8f07a", label: "lime" },
   { hex: "#ef4444", label: "red" },
+  { hex: "#f97316", label: "orange" },
   { hex: "#f59e0b", label: "amber" },
-  { hex: "#10b981", label: "green" },
+  { hex: "#eab308", label: "yellow" },
+  { hex: "#22c55e", label: "green" },
+  { hex: "#14b8a6", label: "teal" },
+  // Row 2 — cools → darks
   { hex: "#06b6d4", label: "cyan" },
   { hex: "#3b82f6", label: "blue" },
-  { hex: "#a855f7", label: "violet" },
+  { hex: "#6366f1", label: "indigo" },
+  { hex: "#8b5cf6", label: "violet" },
+  { hex: "#ec4899", label: "pink" },
+  { hex: "#a1a1aa", label: "grey" },
+  { hex: "#52525b", label: "slate" },
+  { hex: "#18181b", label: "black" },
 ];
 
 const RECENT_KEY = "sant-icons:recent-colors";
