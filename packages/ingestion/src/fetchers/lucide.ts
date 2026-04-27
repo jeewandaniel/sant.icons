@@ -8,9 +8,10 @@ const LIBRARY_LABEL = "Lucide";
 interface LucideIconJson {
   $schema?: string;
   contributors?: unknown[];
-  tags?: string[];
-  categories?: string[];
-  aliases?: string[];
+  // Lucide's tags can be plain strings or objects with deprecation metadata.
+  tags?: unknown[];
+  categories?: unknown[];
+  aliases?: unknown[];
 }
 
 async function getLatestTag(): Promise<string> {
@@ -72,13 +73,27 @@ export async function fetchLucide(): Promise<IconRecord[]> {
   const records: IconRecord[] = [];
   for (const [name, svg] of svgEntries) {
     const meta = jsonEntries.get(name);
-    const category = meta?.categories?.[0] ?? "general";
+    // Lucide's `tags` array sometimes contains objects (deprecation metadata
+    // like { name, deprecated, deprecationReason, toBeRemovedInVersion }).
+    // Coerce everything to strings so downstream consumers can safely render.
+    const stringifyTag = (t: unknown): string | null => {
+      if (typeof t === "string") return t;
+      if (t && typeof t === "object" && "name" in t) {
+        const name = (t as { name: unknown }).name;
+        return typeof name === "string" ? name : null;
+      }
+      return null;
+    };
+    const cleanTags = (arr: unknown[] | undefined) =>
+      (arr ?? []).map(stringifyTag).filter((t): t is string => t !== null);
+    const cleanCategories = cleanTags(meta?.categories);
+    const category = cleanCategories[0] ?? "general";
     const tagSet = new Set<string>([
       ...nameToTags(name),
       category,
-      ...(meta?.tags ?? []),
-      ...(meta?.aliases ?? []),
-      ...(meta?.categories ?? []),
+      ...cleanTags(meta?.tags),
+      ...cleanTags(meta?.aliases),
+      ...cleanCategories,
     ]);
     records.push({
       id: `${LIBRARY_SLUG}-${name}`,
