@@ -81,14 +81,26 @@ export function ColorPicker({ value, onChange, disabled, compact = false }: Colo
   const normalized = value.toLowerCase();
 
   const SECTION_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint";
-  const spacing = compact ? "space-y-2.5" : "space-y-3";
+  const SUB_LABEL = "text-[10px] font-medium tracking-[0.12em] uppercase text-text-faint mb-2";
   const pickerStyle: React.CSSProperties = compact ? { height: 110 } : { height: 168 };
 
   return (
-    <div className={`${spacing} ${disabled ? "opacity-50 pointer-events-none" : ""}`}>
-      {/* Header row: section label + inline hex input */}
-      <div className="flex items-center justify-between gap-2">
-        <span className={SECTION_LABEL}>Colour</span>
+    <div className={`space-y-3 ${disabled ? "opacity-50 pointer-events-none" : ""}`}>
+      {/* Section label */}
+      <div className={SECTION_LABEL}>Colour</div>
+
+      {/* HSV picker (gradient + hue slider, both built into react-colorful) */}
+      <div style={pickerStyle}>
+        <HexColorPicker color={value} onChange={onChange} style={{ width: "100%", height: "100%" }} />
+      </div>
+
+      {/* Live colour swatch + hex input — paint chip + code */}
+      <div className="flex items-center gap-3">
+        <div
+          className="w-10 h-10 rounded-md border border-border-default shrink-0"
+          style={{ background: value }}
+          aria-label={`Current colour ${value}`}
+        />
         <input
           type="text"
           value={value}
@@ -101,18 +113,14 @@ export function ColorPicker({ value, onChange, disabled, compact = false }: Colo
             }
           }}
           spellCheck={false}
-          className="bg-bg-base border border-border-default rounded px-2 py-0.5 font-mono text-[11px] text-text-primary w-[88px] text-center"
+          className="flex-1 bg-bg-base border border-border-default rounded-md px-3 py-2 font-mono text-[12.5px] text-text-primary"
         />
       </div>
 
-      {/* HSV picker — compact height when in tight panel */}
-      <div style={pickerStyle}>
-        <HexColorPicker color={value} onChange={onChange} style={{ width: "100%", height: "100%" }} />
-      </div>
-
-      {/* Preset swatches — taller chips so they're easy to hit */}
-      <div>
-        <div className="text-[9px] tracking-[0.14em] uppercase text-text-faint mb-1.5">Presets</div>
+      {/* Preset swatches — 16 colours, two rows. Top divider keeps it visually
+          distinct from the picker above. */}
+      <div className="pt-3 border-t border-border-subtle">
+        <div className={SUB_LABEL}>Presets</div>
         <div className="grid grid-cols-8 gap-1.5">
           {SWATCHES.map((s) => {
             const active = normalized === s.hex.toLowerCase();
@@ -130,10 +138,10 @@ export function ColorPicker({ value, onChange, disabled, compact = false }: Colo
         </div>
       </div>
 
-      {/* Recent — always visible. Empty slots make the row obvious so users
-          notice they have a colour history available. */}
-      <div>
-        <div className="text-[9px] tracking-[0.14em] uppercase text-text-faint mb-1.5">Recent</div>
+      {/* Recent — own block with divider above to match Presets, so the colour
+          section reads as: picker / paint-chip / presets / recent. */}
+      <div className="pt-3 border-t border-border-subtle">
+        <div className={SUB_LABEL}>Recent</div>
         <div className="grid grid-cols-8 gap-1.5">
           {Array.from({ length: RECENT_MAX }).map((_, i) => {
             const hex = recents[i];

@@ -112,12 +112,12 @@ export function DetailPanel({
 
       {/* Sticky bottom: Download header + format chips + feedback. Always
           visible; chips disabled when no icon is selected. */}
-      <div className="shrink-0 border-t border-border-subtle bg-bg-surface">
-        <div className="px-6 pt-3 pb-2 flex items-center justify-between">
+      <div className="shrink-0 border-t border-border-subtle bg-bg-surface px-6 py-4 space-y-3">
+        <div className="flex items-center justify-between">
           <div className={SECTION}>Download</div>
           {!icon && <div className="text-[10px] text-text-faint">pick an icon first</div>}
         </div>
-        <div className="px-6 pb-3 grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           {FORMATS.map((f) => (
             <FormatChip
               key={f.kind}
@@ -129,7 +129,7 @@ export function DetailPanel({
             />
           ))}
         </div>
-        <div className="px-6 pb-3 min-h-[20px] text-[11px] text-accent">
+        <div className="min-h-[18px] text-[11px] text-accent">
           {feedback ?? <span className="text-text-faint">&nbsp;</span>}
         </div>
       </div>
