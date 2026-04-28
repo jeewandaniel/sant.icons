@@ -528,7 +528,7 @@ The site is a Sant product. Brand presence should be confident but not loud.
 - Logo: `sant.icons` in JetBrains Mono 700. `sant` in accent colour, `.icons` in muted colour. No other logo treatment.
 - Footer: `sant.co.nz — free, forever`. Single line. No marketing copy.
 - Every icon detail page includes `built by sant.co.nz` in the page footer in faint text.
-- The MCP server README includes a single line: `Built by Sant — a web agency in Auckland, New Zealand. sant.co.nz`
+- The MCP server README includes a single line: `Built by Sant — a web studio in Christchurch, New Zealand. sant.co.nz`
 
 That is the total extent of sant branding. The tool earns attention by being excellent, not by advertising.
 
@@ -594,5 +594,5 @@ At the end of every session:
 
 ---
 
-*sant.icons — built by Sant, Auckland, New Zealand*
+*sant.icons — built by Sant, Christchurch, New Zealand*
 *CLAUDE.md v1.0 — April 2026*
