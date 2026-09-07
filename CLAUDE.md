@@ -249,7 +249,10 @@ All visual decisions follow the terminal-first aesthetic locked in the mockup. D
 
 ### Typography
 
-Font: JetBrains Mono for everything. No exceptions. Load via Google Fonts.
+Fonts: Inter for UI/body text, JetBrains Mono for code, icon names, stats and all
+terminal-flavoured chrome. Both are self-hosted at build time via `next/font/google`
+(see `apps/web/app/layout.tsx`) and exposed as `--font-sans` / `--font-mono` — do not
+add a Google Fonts `<link>` or an `@import`.
 Weights used: 300 (labels), 400 (body), 500 (icon names, headings), 700 (logo, primary button).
 
 ```

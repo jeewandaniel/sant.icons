@@ -1,12 +1,15 @@
 name: Weekly refresh
 
-# Triggers a fresh Vercel deploy weekly. The deploy itself runs the ingestion
-# script (see vercel.json buildCommand), so the manifest is always rebuilt
-# from the latest upstream releases — no git artifacts needed.
+# Pulls new icons from upstream and ships them.
 #
-# Setup: in Vercel project settings, create a Deploy Hook
-# (Settings → Git → Deploy Hooks). Copy the URL and add it as a GitHub
-# Actions secret named VERCEL_DEPLOY_HOOK_URL.
+# The 17 npm-sourced libraries (@iconify-json/*, Tabler, Phosphor, Bootstrap,
+# Feather, Heroicons) are pinned by pnpm-lock.yaml, so a plain rebuild would
+# reproduce the *same* manifest. This job bumps those packages inside their
+# semver range first, commits the lockfile, and lets Vercel's git integration
+# deploy the result. Lucide is fetched live from its GitHub release by the
+# ingestion script, so it refreshes on any deploy.
+#
+# No secrets required — the push is the deploy trigger.
 
 on:
   schedule:
@@ -14,15 +17,75 @@ on:
     - cron: "0 3 * * 1"
   workflow_dispatch: # allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
-  trigger-deploy:
+  refresh:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Vercel deploy hook
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Bump icon libraries within semver range
         run: |
-          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
-            echo "✗ VERCEL_DEPLOY_HOOK_URL secret not set"
-            exit 1
+          pnpm --filter @sant/ingestion update \
+            "@iconify-json/*" \
+            "@phosphor-icons/core" \
+            "@tabler/icons" \
+            bootstrap-icons \
+            feather-icons \
+            heroicons
+
+      # Smoke test before we commit anything. An upstream package that
+      # restructures its files would still compile but fail at Vercel build
+      # time, taking the site's deploy down. Run the real pipeline and assert
+      # the manifest is sane; if this fails, nothing is pushed.
+      - name: Build and run ingestion
+        # The Lucide fetcher hits the GitHub API for the latest release tag.
+        # Unauthenticated runners share a 60 req/hr limit and get throttled,
+        # so hand it the automatic Actions token (5000 req/hr, no setup).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm --filter @sant/ingestion run build
+          pnpm --filter @sant/ingestion run start
+
+      - name: Assert manifest is sane
+        run: |
+          node -e '
+            const fs = require("fs");
+            const p = "apps/web/public/index.json";
+            if (!fs.existsSync(p)) { console.error("✗ no index.json produced"); process.exit(1); }
+            const icons = JSON.parse(fs.readFileSync(p, "utf8"));
+            const libs = new Set(icons.map(i => i.library));
+            console.log(`manifest: ${icons.length} icons across ${libs.size} libraries`);
+            if (icons.length < 65000) { console.error(`✗ only ${icons.length} icons — expected 65000+`); process.exit(1); }
+            if (libs.size < 18) { console.error(`✗ only ${libs.size} libraries — expected 18`); process.exit(1); }
+            if (icons.some(i => !i.id || !i.name || !i.library)) { console.error("✗ malformed record"); process.exit(1); }
+            console.log("✓ manifest looks good");
+          '
+
+      - name: Commit and push
+        run: |
+          git config user.name "sant-icons-bot"
+          git config user.email "bot@sant.co.nz"
+          git add pnpm-lock.yaml packages/ingestion/package.json
+          if git diff --staged --quiet; then
+            # No upstream icon releases this week. Push an empty commit anyway:
+            # it redeploys (picking up any new Lucide icons) and counts as repo
+            # activity, which stops GitHub disabling this schedule for inactivity.
+            git commit --allow-empty -m "chore: weekly icon refresh $(date +%Y-%m-%d) [no dep changes]"
+          else
+            git commit -m "chore: bump icon libraries $(date +%Y-%m-%d)"
           fi
-          curl -sSfX POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
-          echo "✓ Triggered Vercel deploy"
+          git push
