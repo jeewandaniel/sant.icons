@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getLibraries } from "@/lib/manifest-server";
+import { getLibraries, getManifestStats } from "@/lib/manifest-server";
 
-export const metadata: Metadata = {
-  title: "Docs — sant.icons",
-  description:
-    "Install the sant.icons MCP server, CLI, or use the static JSON manifest directly. 69,000+ free SVG icons across 18 libraries.",
-  alternates: { canonical: "https://icons.sant.co.nz/docs" },
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const { approxIcons, libraryCount } = await getManifestStats();
+  return {
     title: "Docs — sant.icons",
-    description: "MCP server, CLI, and manifest API for 69,000+ free SVG icons.",
-    url: "https://icons.sant.co.nz/docs",
-    type: "article",
-    images: [{ url: "/og/home.png", width: 1200, height: 630 }],
-  },
-};
+    description: `Install the sant.icons MCP server, CLI, or use the static JSON manifest directly. ${approxIcons} free SVG icons across ${libraryCount} libraries.`,
+    alternates: { canonical: "https://icons.sant.co.nz/docs" },
+    openGraph: {
+      title: "Docs — sant.icons",
+      description: `MCP server, CLI, and manifest API for ${approxIcons} free SVG icons.`,
+      url: "https://icons.sant.co.nz/docs",
+      type: "article",
+      images: [{ url: "/og/home.png", width: 1200, height: 630 }],
+    },
+  };
+}
 
 const SECTIONS = [
   { id: "quick-start", label: "Quick start" },

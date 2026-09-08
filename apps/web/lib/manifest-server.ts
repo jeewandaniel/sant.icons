@@ -64,3 +64,21 @@ export async function getCrossLibrary(icon: IconRecord, limit = 6): Promise<Icon
     .filter((i) => i.library !== icon.library && i.name === icon.name)
     .slice(0, limit);
 }
+
+/**
+ * Build-time counts for page metadata. The manifest is the only source of
+ * truth for these numbers — hardcoding them means they silently go stale
+ * every time the weekly refresh pulls new upstream icons.
+ *
+ * `approxIcons` rounds *down* to the nearest thousand ("71,000+") so the
+ * claim is always true and only changes when a full thousand is crossed.
+ */
+export async function getManifestStats() {
+  const { icons, byLibrary } = await loadManifestServer();
+  const total = icons.length;
+  return {
+    total,
+    libraryCount: byLibrary.size,
+    approxIcons: `${(Math.floor(total / 1000) * 1000).toLocaleString("en-US")}+`,
+  };
+}
