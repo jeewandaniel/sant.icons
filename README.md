@@ -1,6 +1,6 @@
 # sant.icons
 
-> 69,000+ free open-source SVG icons across 18 libraries — one search bar, one URL.
+> 71,000+ free open-source SVG icons across 18 libraries — one search bar, one URL.
 
 [icons.sant.co.nz](https://icons.sant.co.nz) · [Docs](https://icons.sant.co.nz/docs) · [MCP server](https://www.npmjs.com/package/@santicons/mcp) · [CLI](https://www.npmjs.com/package/@santicons/cli)
 

@@ -1,6 +1,6 @@
 # @santicons/mcp
 
-Search and fetch from **69,000+ open-source SVG icons** across 18 libraries including Lucide, Phosphor, Tabler, Material Design, Fluent UI, Heroicons, and more — directly from your AI coding assistant via the [Model Context Protocol](https://modelcontextprotocol.io/).
+Search and fetch from **71,000+ open-source SVG icons** across 18 libraries including Lucide, Phosphor, Tabler, Material Design, Fluent UI, Heroicons, and more — directly from your AI coding assistant via the [Model Context Protocol](https://modelcontextprotocol.io/).
 
 No browser, no copy-paste, no signup. Manifest is bundled in the package, so it works offline.
 

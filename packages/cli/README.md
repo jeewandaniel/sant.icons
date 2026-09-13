@@ -1,6 +1,6 @@
 # @santicons/cli
 
-Search and fetch from **69,000+ open-source SVG icons** across 18 libraries including Lucide, Phosphor, Tabler, Material Design, Fluent UI, Heroicons, and more — without leaving your terminal.
+Search and fetch from **71,000+ open-source SVG icons** across 18 libraries including Lucide, Phosphor, Tabler, Material Design, Fluent UI, Heroicons, and more — without leaving your terminal.
 
 ```bash
 npx sant-icons search "settings"
