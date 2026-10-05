@@ -97,14 +97,14 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8
       '@iconify-json/octicon':
-        specifier: ^1.2.36
-        version: 1.2.36
+        specifier: ^1.2.37
+        version: 1.2.37
       '@iconify-json/pixelarticons':
         specifier: ^1.2.9
         version: 1.2.9
       '@iconify-json/simple-icons':
-        specifier: ^1.2.97
-        version: 1.2.97
+        specifier: ^1.2.99
+        version: 1.2.99
       '@iconify/types':
         specifier: ^2.0.0
         version: 2.0.0
@@ -207,14 +207,14 @@ packages:
   '@iconify-json/mingcute@1.2.8':
     resolution: {integrity: sha512-J8VXpRwTpx5yzOzyhx3T4IXnfXIKTWFl3rZ9okcW4c+NMMuwkLvdmM4rkjB83tnYIhg5+kkeMpmw8tvSnxd4rQ==}
 
-  '@iconify-json/octicon@1.2.36':
-    resolution: {integrity: sha512-YHlJokjC+uBj1kSd7+YTRMNIN85TvAGr4ZJVOHCTzj0nyH64ImXRIZmh4P6Nbv0RGDd7hS7+UwEDGchFgGxxVw==}
+  '@iconify-json/octicon@1.2.37':
+    resolution: {integrity: sha512-bChsJarHR+knEDhm9C4I8yxYmNhed8Ubi8h2PlX7id+tm86KjdOGAHPwDIS+Zo9z5DnsBVJSGR8LtHzhzBu7gA==}
 
   '@iconify-json/pixelarticons@1.2.9':
     resolution: {integrity: sha512-euvs0Lwcoo5CAz5VicRlxWxO/Aqk/nOxbUhPkXCqWl3ua79H6XVrtWWGVIwugecCBwMrxltf2ArD5O41MNRGSw==}
 
-  '@iconify-json/simple-icons@1.2.97':
-    resolution: {integrity: sha512-Z6PmM6jvWVU7rmLzqbxCLJA7SeqCnK6lMHXtjyzHPLZebwuoojBEcHHycppahDzEeN9xujRkrV5J8QpOhMyNrg==}
+  '@iconify-json/simple-icons@1.2.99':
+    resolution: {integrity: sha512-kouZhqvUoNdxEe+lZksbJJZMCZv4b4Ob62O1GW3fcpz/I0mVPzM+9/Qf/DUuv5ns8l6c46D8M/ubhJjjbLp9HQ==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1411,7 +1411,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/octicon@1.2.36':
+  '@iconify-json/octicon@1.2.37':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -1419,7 +1419,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.97':
+  '@iconify-json/simple-icons@1.2.99':
     dependencies:
       '@iconify/types': 2.0.0
 
