@@ -73,11 +73,11 @@ importers:
         specifier: ^1.2.28
         version: 1.2.28
       '@iconify-json/devicon':
-        specifier: ^1.2.68
-        version: 1.2.68
+        specifier: ^1.2.71
+        version: 1.2.71
       '@iconify-json/fluent':
-        specifier: ^1.2.59
-        version: 1.2.59
+        specifier: ^1.2.60
+        version: 1.2.60
       '@iconify-json/hugeicons':
         specifier: ^1.2.35
         version: 1.2.35
@@ -85,8 +85,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@iconify-json/iconoir':
-        specifier: ^1.2.11
-        version: 1.2.11
+        specifier: ^1.2.12
+        version: 1.2.12
       '@iconify-json/majesticons':
         specifier: ^1.2.5
         version: 1.2.5
@@ -97,14 +97,14 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8
       '@iconify-json/octicon':
-        specifier: ^1.2.37
-        version: 1.2.37
+        specifier: ^1.2.38
+        version: 1.2.38
       '@iconify-json/pixelarticons':
-        specifier: ^1.2.9
-        version: 1.2.9
+        specifier: ^1.2.10
+        version: 1.2.10
       '@iconify-json/simple-icons':
-        specifier: ^1.2.99
-        version: 1.2.99
+        specifier: ^1.2.100
+        version: 1.2.100
       '@iconify/types':
         specifier: ^2.0.0
         version: 2.0.0
@@ -112,8 +112,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       '@tabler/icons':
-        specifier: ^3.48.0
-        version: 3.48.0
+        specifier: ^3.49.0
+        version: 3.49.0
       '@vercel/og':
         specifier: ^0.11.1
         version: 0.11.1
@@ -121,8 +121,8 @@ importers:
         specifier: ^0.5.16
         version: 0.5.17
       bootstrap-icons:
-        specifier: ^1.13.1
-        version: 1.13.1
+        specifier: ^1.13.2
+        version: 1.13.2
       dotenv:
         specifier: ^16.4.7
         version: 16.6.1
@@ -183,11 +183,11 @@ packages:
   '@iconify-json/carbon@1.2.28':
     resolution: {integrity: sha512-dog92E0fGszJSrmeikPQmFrd4ptbdapogEhtZ9MCA9KiCNacYb2/nDi0euwsK0kTevsFiTy7Mte6QvRq3LDyHQ==}
 
-  '@iconify-json/devicon@1.2.68':
-    resolution: {integrity: sha512-4RNlCSNCSgDEOVMHkBOxgik9agJcVRcfXwAZcwMdIolWx/lvXHzo2kqcqTqQGviZuBbnv3L1lyd+CowyZE+I3g==}
+  '@iconify-json/devicon@1.2.71':
+    resolution: {integrity: sha512-1o+Zl3QveZZoE6VMUl9hL4FEtyHC1NeUHO8sqBm2vb7oG1hL/43uzjKPXolG2tkQRkcEoi6TjH2qMss+xPCdAw==}
 
-  '@iconify-json/fluent@1.2.59':
-    resolution: {integrity: sha512-fxed71Y7Tg6aXZCZeVyOevFQdMgbPPrIV+pE/3gTLxFlVLTtDkAsK/B/WZzkLUYxJ3cdoP0ex2a23Oi6ePhWkA==}
+  '@iconify-json/fluent@1.2.60':
+    resolution: {integrity: sha512-+Tc4TcygQpzm2QNQ3v1/p5V+3OWczkJzKMqUw01pzGiIYLD85uhWPY4GaERkU0+J9J9ZqGQEWKSOk/qPL2ofsw==}
 
   '@iconify-json/hugeicons@1.2.35':
     resolution: {integrity: sha512-c06tY90JZnKhOLBAKoQ1z2pqXMRdATuYXslTKwaaIAjLzKsTIsE+GGknY6+qo/SP0U/NG9xQjr4N+zfDqOeQiQ==}
@@ -195,8 +195,8 @@ packages:
   '@iconify-json/iconamoon@1.2.2':
     resolution: {integrity: sha512-Xn7YeSDniPgutPr0qil/iQwQelq975OYQ/i2twGjcK4DjGOXBrBC+6q45WtVuQbFfXzM7bgijv4yVnxy0OqUdQ==}
 
-  '@iconify-json/iconoir@1.2.11':
-    resolution: {integrity: sha512-clBrCsZPkmdksYOkufVp7aoAU1j1hFQPrLUooWWmoYIMvKskUHQ+IDnwV7agTR+tGYHbud7OP2SRfYEpnqFDNw==}
+  '@iconify-json/iconoir@1.2.12':
+    resolution: {integrity: sha512-9l6OtKntemFvgCbQ14AheNiUpm9eicNCwPuCmAVjmYORqhGFMEf33Yfo1S1pRFh9XIA3s7tiVmly6hm+dYNgEw==}
 
   '@iconify-json/majesticons@1.2.5':
     resolution: {integrity: sha512-tj0ZTiYOkz8HC365x7Pj8vXCsHCjVuFXcwoFG0iuMlvLrHslVlFhSTLjt/x/5r0ciCrtA5tLGpbV1uG0fdC56g==}
@@ -207,14 +207,14 @@ packages:
   '@iconify-json/mingcute@1.2.8':
     resolution: {integrity: sha512-J8VXpRwTpx5yzOzyhx3T4IXnfXIKTWFl3rZ9okcW4c+NMMuwkLvdmM4rkjB83tnYIhg5+kkeMpmw8tvSnxd4rQ==}
 
-  '@iconify-json/octicon@1.2.37':
-    resolution: {integrity: sha512-bChsJarHR+knEDhm9C4I8yxYmNhed8Ubi8h2PlX7id+tm86KjdOGAHPwDIS+Zo9z5DnsBVJSGR8LtHzhzBu7gA==}
+  '@iconify-json/octicon@1.2.38':
+    resolution: {integrity: sha512-EEct6KazWD8B38nF4r7Vb7Iy4Q4FPhJnHlbn+2QAj1g5I3NM6CsGXSBlDpVc5V6m+Fy2lgvilkKp9H8gznFxrw==}
 
-  '@iconify-json/pixelarticons@1.2.9':
-    resolution: {integrity: sha512-euvs0Lwcoo5CAz5VicRlxWxO/Aqk/nOxbUhPkXCqWl3ua79H6XVrtWWGVIwugecCBwMrxltf2ArD5O41MNRGSw==}
+  '@iconify-json/pixelarticons@1.2.10':
+    resolution: {integrity: sha512-bGUjTf8BRz0Abr5VNdy2rEB8eUB0evlaVtD4YlHSC16T7Yj70X8CRhEoetgHJJEbFu61veDWPcg71lp1H1NSSg==}
 
-  '@iconify-json/simple-icons@1.2.99':
-    resolution: {integrity: sha512-kouZhqvUoNdxEe+lZksbJJZMCZv4b4Ob62O1GW3fcpz/I0mVPzM+9/Qf/DUuv5ns8l6c46D8M/ubhJjjbLp9HQ==}
+  '@iconify-json/simple-icons@1.2.100':
+    resolution: {integrity: sha512-536pN2RCEQyy5bYwzayrs4e9egr8cmtVcbdSHLaQl/ULUsihzn1eZ0+Hhn50zgz9cbEotiynKsKQSEjFJ7qKmw==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -486,8 +486,8 @@ packages:
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
 
-  '@tabler/icons@3.48.0':
-    resolution: {integrity: sha512-lQk06gVHNVBnJp0UOgtth54mcZBJM7rdYKsAxKOProj1bbSAx+/xiuOWfHlyvgdL3M+Y+I0HINrjHa3ygp8eXQ==}
+  '@tabler/icons@3.49.0':
+    resolution: {integrity: sha512-l+GnSkFETx0U26icxv1VUFnxxiTqXfCcVRiRAnyMwibupM2S2L/hSaZ9gmSgz01rkrsH/93NvLsxykqdanc6lw==}
 
   '@tanstack/react-virtual@3.13.24':
     resolution: {integrity: sha512-aIJvz5OSkhNIhZIpYivrxrPTKYsjW9Uzy+sP/mx0S3sev2HyvPb7xmjbYvokzEpfgYHy/HjzJ2zFAETuUfgCpg==}
@@ -572,8 +572,8 @@ packages:
     resolution: {integrity: sha512-oP5VkATKlNwcgvxi0vM0p/D3n2C3EReYVX+DNYs5TjZFn/oQt2j+4sVJtSMr18pdRr8wjTcBl6LoV+FUwzPmNA==}
     engines: {node: '>=18'}
 
-  bootstrap-icons@1.13.1:
-    resolution: {integrity: sha512-ijombt4v6bv5CLeXvRWKy7CuM3TRTuPEuGaGKvTV5cz65rQSY8RQ2JcHt6b90cBBAC7s8fsf2EkQDldzCoXUjw==}
+  bootstrap-icons@1.13.2:
+    resolution: {integrity: sha512-fAU1Ly3dH7hwRg+CB8EZ0Vl0fF80zgXHeUVJyfUOKzoURr+TbwISbCW5tKUoQLERaWYG2emTCybcPbD96hdD1A==}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -1379,11 +1379,11 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/devicon@1.2.68':
+  '@iconify-json/devicon@1.2.71':
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/fluent@1.2.59':
+  '@iconify-json/fluent@1.2.60':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -1395,7 +1395,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/iconoir@1.2.11':
+  '@iconify-json/iconoir@1.2.12':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -1411,15 +1411,15 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/octicon@1.2.37':
+  '@iconify-json/octicon@1.2.38':
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/pixelarticons@1.2.9':
+  '@iconify-json/pixelarticons@1.2.10':
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/simple-icons@1.2.99':
+  '@iconify-json/simple-icons@1.2.100':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -1615,7 +1615,7 @@ snapshots:
       '@swc/counter': 0.1.3
       tslib: 2.8.1
 
-  '@tabler/icons@3.48.0': {}
+  '@tabler/icons@3.49.0': {}
 
   '@tanstack/react-virtual@3.13.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -1707,7 +1707,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  bootstrap-icons@1.13.1: {}
+  bootstrap-icons@1.13.2: {}
 
   braces@3.0.3:
     dependencies:
